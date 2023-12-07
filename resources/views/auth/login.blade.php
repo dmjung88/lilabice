@@ -6,7 +6,17 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
+                {{-- 유효성 에러 --}}
+                @if($errors->any())
+                    @foreach ($errors->all() as $error )
+                        {{ $error }}
+                    @endforeach
+                @endif
 
+                {{-- with('success','성공') --}}
+                @if(session()->has('success'))
+                    {{ session('success') }}
+                @endif
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf

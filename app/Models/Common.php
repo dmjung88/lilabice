@@ -11,6 +11,6 @@ class Common extends Model
     //protected $guarded = [ ];
     //protected $primaryKey = 'id';
     protected $fillable = [ '*' ];
-    protected $table = 'MASTER_STORE';
+    protected $table = 'MASTER_ICE';
     public $incrementing = false;
 }

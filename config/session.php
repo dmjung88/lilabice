@@ -9,9 +9,9 @@ return [
     | Default Session Driver
     |--------------------------------------------------------------------------
     |
-    | This option controls the default session "driver" that will be used on
-    | requests. By default, we will use the lightweight native driver but
-    | you may specify any of the other wonderful drivers provided here.
+    | 이 옵션은 사용될 기본 세션 "드라이버"를 제어합니다
+    | 요청합니다. 기본적으로 가벼운 네이티브 드라이버를 사용하지만
+    | 여기에 제공된 다른 멋진 드라이버를 지정할 수 있습니다.
     |
     | Supported: "file", "cookie", "database", "apc",
     |            "memcached", "redis", "dynamodb", "array"
@@ -25,9 +25,9 @@ return [
     | Session Lifetime
     |--------------------------------------------------------------------------
     |
-    | Here you may specify the number of minutes that you wish the session
-    | to be allowed to remain idle before it expires. If you want them
-    | to immediately expire on the browser closing, set that option.
+    | 여기서 세션을 원하는 시간(분)을 지정할 수 있습니다
+    | 만료되기 전에 유휴 상태를 유지하도록 허용됩니다. 만약 당신이 그것들을 원한다면
+    | 브라우저 닫힘에서 즉시 만료하려면 해당 옵션을 설정합니다.
     |
     */
 
@@ -40,9 +40,9 @@ return [
     | Session Encryption
     |--------------------------------------------------------------------------
     |
-    | This option allows you to easily specify that all of your session data
-    | should be encrypted before it is stored. All encryption will be run
-    | automatically by Laravel and you can use the Session like normal.
+    | 이 옵션을 사용하면 모든 세션 데이터를 쉽게 지정할 수 있습니다
+    | 저장되기 전에 암호화해야 합니다. 모든 암호화가 실행됩니다
+    | Larvel에 의해 자동으로 세션을 정상적으로 사용할 수 있습니다.
     |
     */
 

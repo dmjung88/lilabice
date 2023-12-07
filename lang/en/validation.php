@@ -6,10 +6,10 @@ return [
     |--------------------------------------------------------------------------
     | Validation Language Lines
     |--------------------------------------------------------------------------
-    |
-    | The following language lines contain the default error messages used by
-    | the validator class. Some of these rules have multiple versions such
-    | as the size rules. Feel free to tweak each of these messages here.
+    | 영어만  'name' => 'required|string|regex:/^[a-zA-Z\s]+/|min:1|max:255',
+    | 한글만  'title' => 'required|string|regex:/^[가-힣\s]+/|min:1|max:255',
+    | 영어 + 한글 => 'required|string|regex:/^[가-힣a-zA-Z\s]+/|min:1|max:255',
+    | 한글 개별 + 완성 모두 가능 ㄱ-ㅣ가-힣
     |
     */
 
