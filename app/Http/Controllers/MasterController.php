@@ -16,6 +16,41 @@ class MasterController extends Controller
         // $this->middleware('guest', [ 'except' => 'logout', ]);
     }
 
+    public function exceptionTest(Request $request) {
+
+        // $result =  DB::table('TESTd')->insert([
+        //     'test1' => $request->input('test1'),
+        //     'test2' => $request->input('test2')
+        // ]);
+        try {
+            $sql = 'INSERT INTO TEST(TEST1,TEST2) VALUES(:test1, :test2)';
+            $result = DB::insert($sql , ['test1'=>$request->test1, 'test2'=>$request->test2]);
+            
+            return '성공';
+        } catch (Exception $e) {
+            report($e);
+        }
+        
+    }
+
+    public function getTest() {
+        
+        $sql = 'INSERT INTO TEST(TEST1,TEST2) VALUES(:test1, :test2)';
+        $result = DB::insert($sql , ['test1'=>'내용1', 'test2'=>'내용2']);
+
+        if($result) {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->errors() 
+            ]);
+        } else {
+            return response()->json([
+                'status'=>400,
+                'errors'=>$validator->errors()
+            ]);
+        }
+    }
+
     public function wholesaleSave(Request $request) { // 도매장 저장
         $validator = Validator::make($request->all(), [ // Form_validation
             'wholeName'  => 'required|max:30|string',
@@ -210,6 +245,164 @@ class MasterController extends Controller
                 'REG_ID'  => $request->regId,
             ]);
             $response['response'] = ["message"=> "수리기사 저장 성공" ];
+            $response['success'] = true;
+        }
+        return Response::json($response, 201);
+    }
+    // 도매장 update MODE
+    public function wholeSaleUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [ // Form_validation
+            'wholeCode' => 'required',
+
+            'wholeName'  => 'required|max:30|regex:/^[가-힣\s]+/|',
+            'wholePhone' => 'required|max:11',
+            'wholeCeo'  => 'required|max:10',
+            'wholeBiz'   => 'required|max:10',
+            'wholeBizNum' => 'required',
+            'wholeType'  => 'required',
+            'wholeAddress' => 'required',
+            'wholeZipcode' => 'required',
+            'wholeEmail' => 'required',
+            'wholeUseYN' => 'required',
+        ]);
+        $response = ['response' => '', 'success'=> false];
+        if ($validator->fails()) {
+            $response['response'] = $validator->messages();
+        } else {
+            DB::table('MASTER_WHOLESALE')->where('WHOLE_CODE', $request->wholeCode)->update([
+                'WHOLE_NAME' => $request->input('wholeName'),
+                'WHOLE_PHONE' => $request->input('wholePhone'),
+                'WHOLE_CEO' => $request->input('wholeCeo'),
+                'WHOLE_BIZ' => $request->input('wholeBiz'),
+                'WHOLE_BIZ_NUM' => $request->input('wholeBizNum'),
+                'WHOLE_TYPE' => $request->input('wholeType'),
+                'WHOLE_ADDRESS' => $request->input('wholeAddress'),
+                'WHOLE_ZIPCODE' => $request->input('wholeZipcode'),
+                'WHOLE_EMAIL' => $request->input('wholeEmail'),
+                'WHOLE_USEYN' => $request->input('wholeUseYN'),
+                'NOTE' => $request->input('note'),
+                'ADD1' => $request->input('add1'),
+            ]);
+            $response['response'] = ["message"=> "도매장 수정 성공" ];
+            $response['success'] = true;
+        }
+        return Response::json($response, 201);
+    }
+
+    // 업소 update MODE
+    public function storeUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [ // Form_validation
+            'storeName'=>'required',
+            'wholeCode'=>'required',
+            'storePhone'=>'required',
+            'storeCeo' =>'required', 
+            'storeBizNum'=>'required', 
+            'storeBiz'=>'required', 
+            'storeType'=>'required',
+            'empCode' => 'required',
+            'storeAddress' =>'required',
+            'storeZipcode' =>'required',
+            'storeEmail' =>'required',
+            'storeUseYN' =>'required',
+            'note' =>'required',
+            'regId' =>'required',
+        ]);
+        $response = ['response' => '', 'success'=> false];
+        if ($validator->fails()) {
+            $response['response'] = $validator->messages();
+        } else {
+            DB::table('MASTER_STORE')->where('STORE_CODE', $request->storeCode)->update([
+                'ICE_CODE' => $request->get('iceCode'),
+                'STORE_CODE' => "M" . Master::sCodeSeq(),
+                'STORE_NAME' => $request->get('storeName'),
+                'WHOLE_CODE' => $request->get('wholeCode'),
+                'STORE_PHONE' => $request->get('storePhone'),
+                'STORE_CEO' => $request->get('storeCeo'),
+                'STORE_BIZ_NUM' => $request->get('storeBizNum'),
+                'STORE_BIZ' => $request->get('storeBiz'),
+                'STORE_TYPE' => $request->get('storeType'),
+                'EMP_CODE' => $request->get('empCode'),
+                'STORE_ADDRESS' => $request->get('storeAddress'),
+                'STORE_ZIPCODE' => $request->get('storeZipcode'),
+                'STORE_EMAIL' => $request->get('storeEmail'),
+                'STORE_USEYN' => $request->get('storeUseYN'),
+                'NOTE' => $request->get('note'),
+                'REG_ID' => $request->get('regId'),
+            ]);
+            $response['response'] = ["message"=> "업소 수정 성공" ];
+            $response['success'] = true;
+        }
+        return Response::json($response, 201);
+        
+    }
+
+    // 상품 update MODE
+    public function goodsUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [ // Form_validation
+            'goodsName'  => 'required',
+            'wholeCode'  => 'required',
+            'goodsMaker' => 'required',
+            'goodsDiv'   => 'required',
+            'goodsNick'  => 'required',
+            'goodsVol'   => 'required',
+            'goodsType'  => 'required',
+            'lastModify' => 'required',
+            'purchCost'  => 'required',
+            'goodsUseYN' => 'required',
+            'note'       => 'required',
+            'regId'      => 'required',
+        ]);
+        $response = ['response' => '', 'success'=> false];
+        if ($validator->fails()) {
+            $response['response'] = $validator->messages();
+        } else {
+            DB::table('MASTER_GOODS')->where('GOODS_CODE', $request->goodsCode)->update([
+                'GOODS_NAME' => $request->input('goodsName'),
+                'WHOLE_CODE' => $request->input('wholeCode'),
+                'GOODS_MAKER' => $request->input('goodsMaker'),
+                'GOODS_DIV' => $request->input('goodsDiv'),
+                'GOODS_NICK' => $request->input('goodsNick'),
+                'GOODS_VOL' => $request->input('goodsVol'),
+                'GOODS_TYPE' => $request->input('goodsType'),
+                'PURCH_COST' => $request->input('purchCost'),
+                'GOODS_USEYN' => $request->input('goodsUseYN'),
+                'NOTE'   => $request->note,
+                'REG_ID' => $request->regId,
+                'LAST_MODIFY' => now(),
+                'UP_DATE'     => date('Y-m-d H:i:s'),
+            ]);
+            $response['response'] = ["message"=> "상품 수정 성공" ];
+            $response['success'] = true;
+        }
+        return Response::json($response, 201);
+    }
+ 
+    // 수리정보 update MODE
+    public function fixUpdate(Request $request) {
+        $validator = Validator::make($request->all(), [ // Form_validation
+            'fixName'  => 'required',
+            'purchCost' => 'required',
+            'salesCost' => 'required',
+            'marginPer'  => 'required',
+            'note'       => 'required',
+            'regId'      => 'required',
+            'fixUseYN'   => 'required',
+        ]);
+        $response = ['response' => '', 'success'=> false];
+        if ($validator->fails()) {
+            $response['response'] = $validator->messages();
+        } else {
+            DB::table('MASTER_FIX')->where('FIX_CODE', $request->fixCode)->update([
+                'PURCH_COST' => $request->input('purchCost'),
+                'SALES_COST' => $request->input('salesCost'),
+                'MARGIN_PER' => $request->input('marginPer'),
+                'NOTE' => $request->input('note'),
+                'LAST_MODIFY' => $request->input('regId'),
+                'ADD1' => $request->input('fixUseYN'),
+                'UP_DATE'     => date('Y-m-d H:i:s'),
+                'REG_ID' => $request->regI
+            ]);
+            $response['response'] = ["message"=> "수리정보 수정 성공" ];
             $response['success'] = true;
         }
         return Response::json($response, 201);

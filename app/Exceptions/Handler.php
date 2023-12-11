@@ -26,9 +26,9 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * A list of the inputs that are never flashed to the session on validation exceptions.
-     *
-     * @var array<int, string>
+     * if($this->isHttpException)
+     *   if ($exception->getStatusCode() == 404)
+     *     return redirect('/')
      */
     protected $dontFlash = [
         'current_password',
@@ -37,7 +37,6 @@ class Handler extends ExceptionHandler
     ];
 
     /**
-     * Register the exception handling callbacks for the application.
      *
      * @return void
      */

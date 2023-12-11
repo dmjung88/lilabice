@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 
 class BondController extends Controller
 {
+
+    public function delete($id) {
+        DB::table('테이블')->where('idx', $id)->delete();
+    }
     //28 도매장별 데이터 조회
     public function wholeSearch($wholeSaleCode) {
         die($wholeSaleCode);

@@ -36,6 +36,7 @@ Route::prefix('common')->group(function () {
     Route::post('/search/fix', [CommonController::class, 'fixDataSearch']);
     Route::get('/mypage', [CommonController::class, 'myPage']);
     Route::post('/emp/save', [CommonController::class, 'empSave']);
+
 });
 
 //MasterController
@@ -46,21 +47,30 @@ Route::prefix('master')->group(function () {
     Route::post('/fix', [MasterController::class, 'fixSave']);
     Route::post('/employee', [MasterController::class, 'employeeSave']);
 
-    Route::get('/codeCheck', [MasterController::class, 'codeCheck']);
+    //업데이트 모드
+    Route::post('/wholesaleUpdate', [MasterController::class, 'wholeSaleUpdate']);
+    Route::post('/storeUpdate', [MasterController::class, 'storeUpdate']);
+    Route::post('/goodsUpdate', [MasterController::class, 'goodsUpdate']);
+    Route::post('/fixUpdate', [MasterController::class, 'fixUpdate']);
+
+    //테스트용
+    Route::post('/test', [MasterController::class, 'exceptionTest']);
+    Route::get('/gettest', [MasterController::class, 'getTest']);
 });
 
 //WorkController
 Route::prefix('work')->group(function () {
-    Route::get('/receive', [WorkController::class, 'receiveSave'])->name('work.receiveSave');
-    Route::get('/code/{storeCode}', [WorkController::class, 'codeSearch'])->name('work.codeSearch');
-    Route::get('/sales/{storeCode}', [WorkController::class, 'salesSave'])->name('work.salesSave');
-    Route::post('/{storeCode}', [WorkController::class, 'workSave'])->name('work.workSave');
-    Route::post('/{storeCode}/save/{type?}', [WorkController::class, 'workModify'])->name('work.workModify');
+    Route::post('/receive', [WorkController::class, 'receiveSave'])->name('work.receiveSave');
+    Route::post('/codeSearch', [WorkController::class, 'codeSearch'])->name('work.codeSearch');
+    Route::post('/salesSave', [WorkController::class, 'salesSave'])->name('work.salesSave');
+    Route::post('/workProSave', [WorkController::class, 'workProSave'])->name('work.workProSave');
+    Route::post('/workModify', [WorkController::class, 'workModify'])->name('work.workModify');
 });
 
 //ReportController
 Route::prefix('report')->group(function() {
-    Route::get('/{type}', [ReportController::class, 'newSearch'])->name('report.newSearch');
+    Route::get('/reportNewSearch', [ReportController::class, 'reportNewSearch'])->name('report.reportNewSearch');
+    Route::get('/reportNewSearchNoWhole', [ReportController::class, 'reportNewSearchNoWhole'])->name('report.reportNewSearchNoWhole');
 });
 
 //BondController
