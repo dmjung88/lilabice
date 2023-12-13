@@ -30,6 +30,7 @@ class TaxController extends Controller
     /* PDF 다운로드
     * https://www.youtube.com/watch?v=baUslJ_OnnY
     * https://github.com/barryvdh/laravel-dompdf
+    * https://www.youtube.com/watch?v=zfZFygg3T6c
     */
     public function exportPdf () {
         $data = ['data1' => '데이타1','data2' => '데이타2'] ;
@@ -38,8 +39,25 @@ class TaxController extends Controller
         //return view('welcome',compact('data'));
     }
 
+    /* 이메일 보내기 (Gmail)
+    * https://www.youtube.com/watch?v=TRH5cDOa53w
+    * https://www.youtube.com/watch?v=D8CCivAJBLk
+    */
     public function eMailSend() {
-        Mail::to('wjdehans3@naver.com')->send(new Mailer('marine'));
-        return view('welcome');
+        $mailData = ['title' =>"subject" ,'body'=>"BODY",'name'=>"JSON"]; 
+        Mail::to('받는사람')->send(new Mailer($mailData));
+        print "이메일 전송 성공";
+    }
+    /* 이메일 + PDF
+    * MailTrap + PDF : https://www.youtube.com/watch?v=60jEIQ8LtS0
+    */
+    public function attachSend() {
+        $data['email'] = '받는사람';
+        $data['title'] = 'TITLE';
+        $data['body'] = "CONTENT";
+        $pdf = PDF::loadview('welcome',compact('data')); //pdf 스크린샷 view
+        $data['pdf'] = $pdf;
+        Mail::to($data['email'])->send(new Mailer($data));
+        print "메일 + PDF 성공";
     }
 }

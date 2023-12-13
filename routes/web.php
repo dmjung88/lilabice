@@ -37,4 +37,8 @@ Route::get('tax/exportToExcel',[TaxController::class, 'exportToExcel']);
 //데이터 PDF 다운
 Route::get('tax/exportPdf',[TaxController::class, 'exportPdf']);
 //email 보내기
+//https://www.youtube.com/watch?v=TRH5cDOa53w
 Route::get('tax/eMailSend',[TaxController::class, 'eMailSend']);
+//email + pdf 보내기
+//https://www.youtube.com/watch?v=60jEIQ8LtS0
+Route::get('tax/attachSend',[TaxController::class, 'attachSend']);

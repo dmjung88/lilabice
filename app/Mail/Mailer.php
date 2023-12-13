@@ -7,19 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Queue\SerializesModels;
 
 class Mailer extends Mailable
 {
     use Queueable, SerializesModels;
 
-    /** 메일트랩 로그인
-     * 내 받은편지함 - 라라벨
+    /** 
      *
      * 
      */
-    public function __construct() {
 
+    public $mailData ;
+
+    public function __construct($mailData) {
+        $this->mailData = $mailData;
     }
 
     /**
@@ -30,29 +33,28 @@ class Mailer extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Mailer',
+            subject: 'TITLE',
         );
     }
 
     /**
-     * Get the message content definition.
-     *
-     * @return \Illuminate\Mail\Mailables\Content
+     * 보낼 view 템플릿경로
      */
     public function content()
     {
         return new Content(
-            view: 'emailView',
+            view: 'emails.emailView',
         );
     }
 
     /**
-     * Get the attachments for the message.
-     *
-     * @return array
+     * 첨부는이곳
      */
     public function attachments()
     {
-        return [];
+        return [
+            Attachment::fromData(fn() =>$this->mailData['pdf']->output(),'output.pdf')
+            ->withMime('application/pdf'),
+        ];
     }
 }
