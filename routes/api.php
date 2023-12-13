@@ -41,21 +41,20 @@ Route::prefix('common')->group(function () {
 
 //MasterController
 Route::prefix('master')->group(function () {
+
+    //입력 모드
     Route::post('/wholesale', [MasterController::class, 'wholesaleSave']);
     Route::post('/store', [MasterController::class, 'storeSave']);
     Route::post('/goods', [MasterController::class, 'goodsSave']);
     Route::post('/fix', [MasterController::class, 'fixSave']);
     Route::post('/employee', [MasterController::class, 'employeeSave']);
 
-    //업데이트 모드
+    //수정 모드
     Route::post('/wholesaleUpdate', [MasterController::class, 'wholeSaleUpdate']);
     Route::post('/storeUpdate', [MasterController::class, 'storeUpdate']);
     Route::post('/goodsUpdate', [MasterController::class, 'goodsUpdate']);
     Route::post('/fixUpdate', [MasterController::class, 'fixUpdate']);
 
-    //테스트용
-    Route::post('/test', [MasterController::class, 'exceptionTest']);
-    Route::get('/gettest', [MasterController::class, 'getTest']);
 });
 
 //WorkController
@@ -71,6 +70,18 @@ Route::prefix('work')->group(function () {
 Route::prefix('report')->group(function() {
     Route::get('/reportNewSearch', [ReportController::class, 'reportNewSearch'])->name('report.reportNewSearch');
     Route::get('/reportNewSearchNoWhole', [ReportController::class, 'reportNewSearchNoWhole'])->name('report.reportNewSearchNoWhole');
+    Route::get('/reportStockSearch', [ReportController::class, 'reportStockSearch'])->name('report.reportStockSearch');
+    Route::get('/reportStockSearchNoWhole', [ReportController::class, 'reportStockSearchNoWhole'])->name('report.reportStockSearchNoWhole'); 
+    Route::get('/reportOutputSearch', [ReportController::class, 'reportOutputSearch'])->name('report.reportOutputSearch');
+    Route::get('/reportOutputSearchNoWhole', [ReportController::class, 'reportOutputSearchNoWhole'])->name('report.reportOutputSearchNoWhole'); 
+    Route::get('/reportWithdrawalSearch', [ReportController::class, 'reportWithdrawalSearch'])->name('report.reportWithdrawalSearch');
+    Route::get('/reportWithdrawalSearchNoWhole', [ReportController::class, 'reportWithdrawalSearchNoWhole'])->name('report.reportWithdrawalSearchNoWhole'); 
+    Route::get('/reportTotalSearch', [ReportController::class, 'reportTotalSearch'])->name('report.reportTotalSearch');
+    Route::get('/reportTotalSearchNoWhole', [ReportController::class, 'reportTotalSearchNoWhole'])->name('report.reportTotalSearchNoWhole');   
+    Route::get('/reporWarrantySearch', [ReportController::class, 'reporWarrantySearch'])->name('report.reporWarrantySearch');
+    Route::get('/reportWarrantySearchNoWhole', [ReportController::class, 'reportWarrantySearchNoWhole'])->name('report.reportWarrantySearchNoWhole');     
+    Route::get('/clientTotalSearch', [ReportController::class, 'clientTotalSearch'])->name('report.clientTotalSearch');
+    Route::get('/clientTotalSearchNoWhole', [ReportController::class, 'clientTotalSearchNoWhole'])->name('report.clientTotalSearchNoWhole');                                    
 });
 
 //BondController

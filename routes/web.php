@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SignUpController;
+use App\Http\Controllers\TaxController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,3 +31,10 @@ Route::prefix('auth')->name('auth.')->middleware(['authCheck'])->group(function 
     Route::post('/register',[SignUpController::class, 'postRegister'])->name('postRegister');
     Route::match(['get','post'], '/logout',[SignUpController::class, 'logout'])->name('logout');
 });
+
+//데이터 엑셀다운
+Route::get('tax/exportToExcel',[TaxController::class, 'exportToExcel']);
+//데이터 PDF 다운
+Route::get('tax/exportPdf',[TaxController::class, 'exportPdf']);
+//email 보내기
+Route::get('tax/eMailSend',[TaxController::class, 'eMailSend']);

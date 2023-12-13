@@ -39,6 +39,17 @@ class HomeController extends Controller
         // $result = DB::select('select * from users where user_id = :id', ['id' => $id]);
         // dd(DB::getQueryLog());
         // DB::table('users')->toSql();
-        // dd($request->input())
+        // dd($request->input());
+
+        // DB::enableQueryLog();
+        // $queries = DB::getQueryLog();
+        // $lastQuery = end($queries);
+        // var_dump($lastQuery); die();
+
+        // Customer::select('customers.*')
+        // ->leftJoin('orders', 'customers.id', '=', 'orders.customer_id')
+        // ->whereNull('orders.customer_id')
+        // Customer::doesntHave('orders')
+        // User::query()->join('테이블B AS 별칭', '테이블A.ID','=','테이블B.ID','left outer')
     }
 }
