@@ -14,30 +14,10 @@ class MasterController extends Controller
 
     public function __construct() {
         // $this->middleware('guest', [ 'except' => 'logout', ]);
-    }
-
-    public function exceptionTest(Request $request) {
-
-        // $result =  DB::table('TESTd')->insert([
-        //     'test1' => $request->input('test1'),
-        //     'test2' => $request->input('test2')
-        // ]);
-        try {
-            $sql = 'INSERT INTO TEST(TEST1,TEST2) VALUES(:test1, :test2)';
-            $result = DB::insert($sql , ['test1'=>$request->test1, 'test2'=>$request->test2]);
-            
-            return '성공';
-        } catch (Exception $e) {
-            report($e);
-        }
-        
-    }
+    }  
 
     public function getTest() {
-        
-        $sql = 'INSERT INTO TEST(TEST1,TEST2) VALUES(:test1, :test2)';
-        $result = DB::insert($sql , ['test1'=>'내용1', 'test2'=>'내용2']);
-
+        $result = request('result');
         if($result) {
             return response()->json([
                 'status'=>400,

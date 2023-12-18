@@ -5,6 +5,22 @@
 -- HeidiSQL 버전:                  12.6.0.6765
 -- --------------------------------------------------------
 
+/*
+SELECT 
+* 
+FROM 
+t_work_complete wc, t_fix_cost fc, t_master_ice mi 
+, t_master_wholesale mw, t_master_store ms, t_master_goods mg
+, t_master_emp me  # 수리기사로 로그인시
+
+WHERE wc.fix_cost_idx = fc.fix_cost_idx 
+AND   wc.ICE_CODE = mi.ice_code
+AND   wc.whole_code = mw.whole_code
+AND   wc.store_code = ms.store_code
+AND   wc.goods_code = mg.GOODS_CODE
+AND   wc.EMP_CODE   = me.EMP_CODE
+*/
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET NAMES utf8 */;
 /*!50503 SET NAMES utf8mb4 */;
